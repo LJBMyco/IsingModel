@@ -1,0 +1,13 @@
+{
+  "_template": "gh:cjolowicz/cookiecutter-hypermodern-python",
+  "author": "Lawrence Bradley",
+  "copyright_year": "2024",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "ljbradley@hotmail.com",
+  "friendly_name": "Isingmodel",
+  "github_user": "LJBMyco",
+  "license": "MIT",
+  "package_name": "IsingModel",
+  "project_name": "IsingModel",
+  "version": "0.0.0"
+}
