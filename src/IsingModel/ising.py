@@ -24,3 +24,8 @@ class Model:
         self.lattice = self.rng.random(self.shape)
         self.lattice[self.lattice >= 0.5] = 1.0
         self.lattice[self.lattice != 1.0] = -1.0
+
+    @property
+    def magnetism(self):
+        """Calculate total magnesitm of the lattice."""
+        return np.abs(np.sum(self.lattice))
