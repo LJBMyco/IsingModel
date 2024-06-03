@@ -4,7 +4,9 @@ import math
 from typing import Optional
 from typing import Tuple
 
+import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.animation import FuncAnimation
 from numpy.random import Generator
 
 
@@ -84,7 +86,7 @@ class Model:
         swap = self.metropolis_test(delta_energy)
 
         if swap:
-            self.lattice[i_index][j_index] *= 1.0
+            self.lattice[i_index][j_index] *= -1.0
 
     def glauber_energy(self, i_index: int, j_index: int) -> float:
         """Calculate the energy change by swapping the flip at given site.
@@ -123,3 +125,23 @@ class Model:
                 return True
 
         return False
+
+    def update(self):
+        """Animation update."""
+        for _ in range(self.shape[0] * self.shape[1]):
+            self.glauber_update()
+
+    def frame_update(self, i):
+        """Animation frame update."""
+        self.update()
+        self.mat.set_data(self.lattice)
+        return (self.mat,)
+
+    def animate(self):
+        """Animate model."""
+        fig, ax = plt.subplots()
+        self.mat = ax.imshow(self.lattice)
+
+        FuncAnimation(fig, self.frame_update, interval=1, blit=False)
+
+        plt.show()
