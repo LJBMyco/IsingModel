@@ -50,3 +50,34 @@ def test_total_energy():
 
     model.lattice *= -1.0
     assert model.energy == -100
+
+
+def test_pbc():
+    """Test periodic boundary conditions."""
+    from IsingModel.ising import pbc
+
+    assert pbc(5, 1) == 1
+    assert pbc(5, 6) == 1
+    assert pbc(5, -1) == 4
+
+
+def test_metroplis_test():
+    """Test the metroplis test."""
+    from IsingModel.ising import Model
+
+    model = Model(shape=(5, 5), temperature=1.0)
+
+    assert model.metropolis_test(0.0)
+    assert model.metropolis_test(-1.0)
+
+
+def test_glauber_energy():
+    """Test calculating delta E using glauber."""
+    from IsingModel.ising import Model
+
+    model = Model(shape=(3, 3), temperature=1.0)
+
+    model.lattice = np.array([[1.0, -1.0, 1.0], [-1.0, 1.0, -1.0], [1.0, -1.0, 1.0]])
+
+    assert model.glauber_energy(1, 1) == -8
+    assert model.glauber_energy(0, 1) == -4
