@@ -19,6 +19,7 @@ Changelog = "https://github.com/LJBMyco/IsingModel/releases"
 python = ">=3.9,<4.0"
 click = ">=8.0.1"
 numpy = "^1.26.4"
+matplotlib = "^3.9.0"
 
 [tool.poetry.dev-dependencies]
 Pygments = ">=2.10.0"
