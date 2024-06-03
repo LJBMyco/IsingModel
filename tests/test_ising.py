@@ -32,3 +32,21 @@ def test_total_magnetism():
 
     model.lattice = np.zeros(model.shape)
     assert model.magnetism == 0
+
+
+def test_total_energy():
+    """Test total energy of the system."""
+    from IsingModel.ising import Model
+
+    shape = (5, 5)
+    energy_j = 2
+
+    model = Model(shape=shape, energy_J=energy_j)
+    model.lattice = np.array([[1.0, -1.0, 1.0], [-1.0, 1.0, -1.0], [1.0, -1.0, 1.0]])
+    assert model.energy == 12
+
+    model.lattice = np.ones(shape)
+    assert model.energy == -100
+
+    model.lattice *= -1.0
+    assert model.energy == -100
