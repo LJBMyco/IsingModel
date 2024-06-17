@@ -135,13 +135,39 @@ class Model:
         """Animation frame update."""
         self.update()
         self.mat.set_data(self.lattice)
+        self.text.set_text(f"Sweep: {i+1}/{self.animation_frames}")
         return (self.mat,)
 
-    def animate(self):
+    def animate(self, frames: Optional[int] = None):
         """Animate model."""
         fig, ax = plt.subplots()
+        self.animation_frames = frames
         self.mat = ax.imshow(self.lattice)
+        self.text = ax.text(
+            s=f"Sweep: 0/{frames}",
+            x=0.3,
+            y=1.01,
+            transform=ax.transAxes,
+            fontsize="xx-large",
+        )
+        if frames is not None:
+            ani = FuncAnimation(
+                fig,
+                self.frame_update,
+                interval=1,
+                blit=False,
+                repeat=False,
+                cache_frame_data=False,
+                frames=frames,
+            )
+        else:
+            ani = FuncAnimation(
+                fig,
+                self.frame_update,
+                interval=1,
+                blit=False,
+                repeat=False,
+                cache_frame_data=False,
+            )
 
-        FuncAnimation(fig, self.frame_update, interval=1, blit=False)
-
-        plt.show()
+        return ani
